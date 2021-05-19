@@ -9,7 +9,7 @@ export default createRouter({
             component: () => import('../views/Home.vue'),
         },
         {
-            path: '/',
+            path: '/danmujb',
             name: '弹幕机霸',
             component: () => import('../views/DanMuJB.vue'),
         },

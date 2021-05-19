@@ -13,13 +13,13 @@ export class MiniEngine {
     public roleList: Role[] = [];
     private readonly intervalTime: number = 1000;
     private interval: number | undefined;
-    private unit = 50;
+    public unit = 50;
 
     constructor({
         globalWidth = 1000,
         globalHeight = 1000,
         intervalTime = 1000,
-        unit = 1000,
+        unit = 100,
     }: MiniEngineOptions) {
         this.globalWidth = globalWidth;
         this.globalHeight = globalHeight;

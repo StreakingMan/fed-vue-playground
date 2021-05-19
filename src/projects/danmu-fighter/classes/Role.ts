@@ -13,7 +13,7 @@ interface RoleOptions {
 }
 
 export class Role {
-    private canvasInfo: CanvasInfo;
+    public canvasInfo: CanvasInfo;
     private commandList: string[] = [];
     private engine: MiniEngine;
     constructor(engine: MiniEngine, options: RoleOptions) {
@@ -29,6 +29,22 @@ export class Role {
     }
     tick(): void {
         const command = this.commandList.pop();
+        console.log(command);
         if (!command) return;
+
+        switch (command) {
+            case '上':
+                this.canvasInfo.y -= this.engine.unit;
+                break;
+            case '下':
+                this.canvasInfo.y += this.engine.unit;
+                break;
+            case '左':
+                this.canvasInfo.x -= this.engine.unit;
+                break;
+            case '右':
+                this.canvasInfo.x += this.engine.unit;
+                break;
+        }
     }
 }

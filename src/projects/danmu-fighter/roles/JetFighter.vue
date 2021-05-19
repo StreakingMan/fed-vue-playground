@@ -6,6 +6,11 @@
         width="200"
         height="200"
         viewBox="0 0 160 115"
+        style="position: absolute; transition: 1s"
+        :style="{
+            left: role.canvasInfo.x + 'px',
+            top: role.canvasInfo.y + 'px',
+        }"
     >
         <title>未标题-1</title>
         <path
@@ -15,7 +20,7 @@
         <path
             fill="white"
             d="M169.5,49c0,22.09-31.34,40-70,40s-70-17.91-70-40S60.84,9,99.5,9,169.5,26.91,169.5,49ZM99.5,9c-31,0-56.1,14.46-56.1,32.31S68.52,73.62,99.5,73.62s56.1-14.47,56.1-32.31S130.48,9,99.5,9Z"
-            transform="translate(-21 -9)"
+            transform="translate(0 30) scale(0.8)"
         />
         <circle fill="white" cx="41" cy="32" r="24" />
         <path
@@ -46,10 +51,25 @@
     </svg>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, inject, ref } from 'vue';
+import { Role } from '../classes/Role';
+
+export default defineComponent({
     name: 'JetFighter',
-};
+    setup() {
+        const engine = inject('engine');
+        const role = ref(
+            new Role(engine, {
+                canvasInfo: { x: 500, y: 500, w: 200, h: 200, z: 0 },
+            })
+        );
+        engine.addRole(role.value);
+        return {
+            role,
+        };
+    },
+});
 </script>
 
 <style scoped lang="scss">
