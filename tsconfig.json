@@ -16,7 +16,6 @@
         "src/**/*.d.ts",
         "src/**/*.tsx",
         "src/**/*.vue",
-        "node_modules/@types/jest/index.d.ts",
-        "node_modules/vuetify/types/index.d.ts"
+        "node_modules/@types/jest/index.d.ts"
     ]
 }

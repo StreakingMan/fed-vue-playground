@@ -4,4 +4,5 @@ module.exports = {
     singleQuote: true,
     arrowParens: 'always',
     endOfLine: 'lf',
+    htmlWhitespaceSensitivity: 'css',
 };

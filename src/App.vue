@@ -1,24 +1,11 @@
 <template>
-    <v-app>
-        <v-main>
-            <HelloWorld />
-            <v-btn>alsdf</v-btn>
-        </v-main>
-    </v-app>
+    <router-view></router-view>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue';
-
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+export default defineComponent({
     name: 'App',
-
-    components: {
-        HelloWorld,
-    },
-
-    data: () => ({
-        //
-    }),
-};
+    components: {},
+});
 </script>
