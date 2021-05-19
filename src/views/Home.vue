@@ -1,11 +1,10 @@
 <template>
-    <JetFighter></JetFighter>
+    <h1>这里是首页</h1>
 </template>
 
 <script>
-import JetFighter from '../projects/danmu-fighter/roles/JetFighter.vue';
 export default {
     name: 'Home',
-    components: { JetFighter },
+    components: {},
 };
 </script>
