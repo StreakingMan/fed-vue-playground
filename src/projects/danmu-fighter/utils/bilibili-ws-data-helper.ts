@@ -58,32 +58,48 @@ export const decode = (blob: Blob) =>
                         offset + headerLen,
                         offset + packetLen
                     );
-                    const body = textDecoder.decode(data);
-                    if (body) {
-                        try {
-                            result.body.push(JSON.parse(body));
-                        } catch (e) {
-                            const unp = pako.inflate(data, {
-                                to: 'string',
-                            });
-                            try {
-                                // TODO 这里可能右多个弹幕
-                                const content = JSON.parse(
-                                    unp.substr(16, unp.length - 16)
-                                );
-                                if (content.cmd === 'DANMU_MSG')
-                                    resolve({
-                                        user: content.info[2]?.[1] || 'unknown',
-                                        msg: content.info[1],
-                                    });
-                            } catch (e) {
-                                resolve({
-                                    user: 'unknown',
-                                    msg: unp,
-                                });
-                            }
-                        }
+
+                    let body;
+                    try {
+                        // pako可能无法解压
+                        body = textDecoder.decode(pako.inflate(data));
+                    } catch (e) {
+                        body = textDecoder.decode(data);
                     }
+                    // 同一条 message 中可能存在多条信息，用正则筛出来
+                    // eslint-disable-next-line no-control-regex
+                    body?.split(/[\x00-\x1f]+/).forEach((item) => {
+                        let parsedItem;
+                        try {
+                            parsedItem = JSON.parse(item);
+                        } catch (e) {
+                            // 忽略非 JSON 字符串，通常情况下为分隔符
+                        }
+                        if (typeof parsedItem === 'object') {
+                            // 正常内容
+                            result.body.push(parsedItem);
+                        } else if (parsedItem !== undefined) {
+                            let newBody;
+                            try {
+                                // 重新尝试用pako toString 解压data
+                                newBody = textDecoder.decode(
+                                    pako.inflate(data, {
+                                        to: 'String',
+                                    })
+                                );
+                            } catch (e) {
+                                //
+                            }
+                            // eslint-disable-next-line no-control-regex
+                            newBody?.split(/[\x00-\x1f]+/).forEach((item) => {
+                                try {
+                                    result.body.push(JSON.parse(item));
+                                } catch (e) {
+                                    // 忽略非 JSON 字符串，通常情况下为分隔符
+                                }
+                            });
+                        }
+                    });
                     offset += packetLen;
                 }
             } else if (result.op === 3) {
@@ -91,7 +107,7 @@ export const decode = (blob: Blob) =>
                     count: readInt(buffer, 16, 4),
                 };
             }
-            //resolve(result)
+            resolve(result);
         };
         reader.readAsArrayBuffer(blob);
     });

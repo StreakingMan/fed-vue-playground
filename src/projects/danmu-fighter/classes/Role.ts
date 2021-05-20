@@ -29,9 +29,8 @@ export class Role {
     }
     tick(): void {
         const command = this.commandList.pop();
-        console.log(command);
         if (!command) return;
-
+        console.log(command);
         switch (command) {
             case '上':
                 this.canvasInfo.y -= this.engine.unit;

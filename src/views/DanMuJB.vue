@@ -33,7 +33,7 @@ export default defineComponent({
             engine.stop();
         });
 
-        const roomId = 22948700;
+        const roomId = 8324350;
 
         getBiliBiliDanmuInfo(roomId).then(({ host_list, token }) => {
             const node = host_list[0];
@@ -60,9 +60,15 @@ export default defineComponent({
                     console.log('error');
                 },
                 onmessage({ data }) {
-                    decode(data).then((res) => {
-                        console.log(res);
-                        engine.roleList[0].addCommand(res.msg);
+                    decode(data).then(({ op, body }) => {
+                        if (op !== 5) return;
+                        body.forEach(({ cmd, info }) => {
+                            if (cmd === 'DANMU_MSG') {
+                                const msg = info[1];
+                                const userName = info[2][1];
+                                engine.roleList[0].addCommand(msg);
+                            }
+                        });
                     });
                 },
             });
