@@ -1,23 +1,30 @@
 <template>
-    <div class="d-flex align-center justify-center full-height full-width">
-        <div class="blank-scene elevation-2 bg-color-white">
-            <slot></slot>
-        </div>
+    <div
+        class="blank-scene elevation-2 bg-color-white"
+        :style="{ width: width + 'px', height: height + 'px' }"
+    >
+        <slot></slot>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, inject } from 'vue';
+import { MiniEngine } from '../classes/MiniEngine';
 
 export default defineComponent({
     name: 'BlankScene',
+    setup() {
+        const engine: MiniEngine = inject('engine');
+        return {
+            width: engine.globalWidth,
+            height: engine.globalHeight,
+        };
+    },
 });
 </script>
 
 <style scoped lang="scss">
 .blank-scene {
-    width: 1000px;
-    height: 1000px;
     position: relative;
 }
 </style>

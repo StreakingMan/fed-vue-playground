@@ -27,7 +27,7 @@
         >
             <i
                 class="mdi mdi-arrow-left-bold fz-18"
-                :style="{ transform: `rotate(${hidden ? 0 : 180}deg)` }"
+                :style="{ transform: `rotate(${hidden ? 180 : 0}deg)` }"
             ></i>
         </div>
     </div>
@@ -46,6 +46,7 @@ export default {
             default: false,
         },
     },
+emits: ['update:hidden'],
     computed: {
         positionStyle() {
             const vertical = {
