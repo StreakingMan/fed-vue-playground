@@ -60,12 +60,12 @@ export class MiniEngine {
         if (roles?.length) {
             roles.forEach((role) => {
                 role.clearCommand();
-                role.clearCommandCache()
+                role.clearCommandCache();
             });
         } else {
             this.roleList.forEach((role) => {
                 role.clearCommand();
-                role.clearCommandCache()
+                role.clearCommandCache();
             });
         }
     }

@@ -56,7 +56,7 @@ export default defineComponent({
         const engine = new MiniEngine({
             globalWidth: 800,
             globalHeight: 800,
-            intervalTime: 160,
+            intervalTime: 500,
             unit: 50,
         });
         // 引擎注入

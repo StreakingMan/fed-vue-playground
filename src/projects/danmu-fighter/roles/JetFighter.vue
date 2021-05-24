@@ -8,7 +8,7 @@
         viewBox="0 0 160 115"
         style="position: absolute"
         :style="{
-            transition: '500ms',
+            transition: `${transition}ms linear`,
             left: role.canvasInfo.x + 'px',
             top: role.canvasInfo.y + 'px',
             transform: `rotate(${role.canvasInfo.r || 0}deg)`,
