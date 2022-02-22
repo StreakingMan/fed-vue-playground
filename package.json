@@ -1,5 +1,5 @@
 {
-    "name": "fed-playground",
+    "name": "fed-vue-playground",
     "version": "0.0.0",
     "scripts": {
         "dev": "vite",
